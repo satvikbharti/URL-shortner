@@ -7,8 +7,9 @@ export default async function Page({ params }) {
   const db = client.db("bitlinks")
   const collection = db.collection("url")
 
+  const regex = new RegExp(`^${shorturl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i")
   const result = await collection.findOneAndUpdate(
-    { shorturl: shorturl.toLowerCase() },
+    { shorturl: regex },
     { $inc: { clicks: 1 } },
     { returnDocument: "after" }
   )

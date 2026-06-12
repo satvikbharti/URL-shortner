@@ -34,10 +34,19 @@ function randomAlias(length = 6) {
   return alias
 }
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
+
+async function aliasExists(collection, alias) {
+  const regex = new RegExp(`^${escapeRegExp(alias)}$`, "i")
+  return collection.findOne({ shorturl: regex })
+}
+
 async function generateUniqueAlias(collection) {
-  for (let attempt = 0; attempt < 6; attempt += 1) {
+  for (let attempt = 0; attempt < 8; attempt += 1) {
     const alias = randomAlias(6)
-    const exists = await collection.findOne({ shorturl: alias })
+    const exists = await aliasExists(collection, alias)
     if (!exists) return alias
   }
   throw new Error("Unable to generate a unique alias. Please try again.")
@@ -83,7 +92,7 @@ export async function POST(request) {
       )
     }
 
-    const existing = await collection.findOne({ shorturl })
+    const existing = await aliasExists(collection, shorturl)
     if (existing) {
       return NextResponse.json(
         { success: false, error: true, message: "That alias is already taken." },
