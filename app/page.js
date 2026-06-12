@@ -28,7 +28,14 @@ export default function Home() {
             </div>
           </div>
           <div className="relative h-72 overflow-hidden rounded-[2rem] shadow-2xl sm:h-96">
-            <Image src="/vector.jpg" alt="URL shortener illustration" fill className="object-cover" />
+            <Image
+              src="/vector.jpg"
+              alt="URL shortener illustration"
+              fill
+              sizes="(max-width: 640px) 100vw, 50vw"
+              loading="eager"
+              className="object-cover"
+            />
           </div>
         </div>
 

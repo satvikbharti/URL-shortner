@@ -6,7 +6,8 @@ function escapeRegExp(value) {
 }
 
 export default async function Page({ params }) {
-  const shorturl = String(params.shorturl || "").trim()
+  const resolvedParams = await params
+  const shorturl = String(resolvedParams.shorturl || "").trim()
   if (!shorturl) {
     return notFound()
   }
