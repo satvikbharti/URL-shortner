@@ -3,20 +3,29 @@ import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <nav className='h-16 bg-purple-700 flex justify-between px-3 items-center text-white '>
-      <div className="logo font-bold text-2xl"> 
-        <Link href="/">BitLinks</Link>
+    <nav className='h-16 bg-purple-700 px-4 shadow-lg'>
+      <div className='mx-auto flex h-full max-w-7xl items-center justify-between text-white'>
+        <Link href='/' className='text-2xl font-bold'>BitLinks</Link>
+
+        <ul className='flex items-center gap-6 text-sm font-medium'>
+          <li>
+            <Link href='/' className='transition hover:text-purple-200'>Home</Link>
+          </li>
+          <li>
+            <Link href='/about' className='transition hover:text-purple-200'>About</Link>
+          </li>
+          <li>
+            <Link href='/shorten' className='transition hover:text-purple-200'>Shorten</Link>
+          </li>
+          <li>
+            <Link href='/contact' className='transition hover:text-purple-200'>Contact</Link>
+          </li>
+          <li className='flex items-center gap-3'>
+            <Link href='/shorten' className='rounded-full bg-purple-500 px-4 py-2 text-white shadow-lg transition hover:bg-purple-600'>Try Now</Link>
+            <a href='https://github.com/satvikbharti3108' target='_blank' rel='noreferrer' className='rounded-full border border-white/20 px-4 py-2 text-white transition hover:bg-white/10'>GitHub</a>
+          </li>
+        </ul>
       </div>
-      <ul className='flex justify-center gap-4 items-center'>
-        <Link href="/"><li>Home</li></Link>
-        <Link href="/about"><li>About</li></Link>
-        <Link href="/shorten"><li>Shorten</li></Link>
-        <Link href="/contact"><li>Contact Us</li></Link>
-        <li className='flex gap-3'>
-          <Link href="/shorten"><button className='bg-purple-500 rounded-lg shadow-lg p-3 py-1 font-bold'>Try Now</button></Link>
-          <Link href="/github"><button className='bg-purple-500 rounded-lg shadow-lg p-3 py-1 font-bold'>GitHub</button></Link>
-        </li>
-      </ul>
     </nav>
   )
 }
