@@ -16,16 +16,11 @@ export default async function Page({ params }) {
   const collection = db.collection("url")
 
   const regex = new RegExp(`^${escapeRegExp(shorturl)}$`, "i")
-  const result = await collection.findOneAndUpdate(
-    { shorturl: regex },
-    { $inc: { clicks: 1 } },
-    { returnDocument: "after" }
-  )
-
-  const updated = result?.value ?? result
-  if (!updated) {
+  const urlDoc = await collection.findOne({ shorturl: regex })
+  if (!urlDoc) {
     return notFound()
   }
 
-  redirect(updated.url)
+  await collection.updateOne({ _id: urlDoc._id }, { $inc: { clicks: 1 } })
+  redirect(urlDoc.url)
 }
